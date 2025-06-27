@@ -8,13 +8,15 @@ const port = process.env.PORT || 3000; // Use port from environment or default t
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
 bot.start((ctx) => {
+  const webAppUrl = "https://rendojobs-frontend.vercel.app/register";
+  console.log("Attempting to send web_app with URL:", webAppUrl);
   ctx.reply("Welcome! Use the button below to open the web app.", {
     reply_markup: {
       keyboard: [
         [
           {
             text: "Open Rendojobs App",
-            web_app: { url: "https://rendojobs-frontend.vercel.app/register" },
+            web_app: { url: webAppUrl },
           },
         ],
       ],
