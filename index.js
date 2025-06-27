@@ -4,6 +4,7 @@ const express = require("express");
 
 const app = express();
 const port = process.env.PORT || 3000; // Use port from environment or default to 3000
+const webHookUrl = process.env.WEBHOOK_URL; // Your Render service URL
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
@@ -35,7 +36,16 @@ bot.command("backend", async (ctx) => {
   }
 });
 
-bot.launch();
+// Use webhooks instead of long polling for Render deployment
+app.use(bot.webhookCallback("/bot")); // Telegram will send updates to /bot
+
+// Set up webhook
+bot.telegram
+  .setWebhook(`${webHookUrl}/bot`)
+  .then(() => {
+    console.log("Webhook set!");
+  })
+  .catch((e) => console.error("Error setting webhook:", e));
 
 // Health check endpoint for Render
 app.get("/", (req, res) => {
@@ -46,6 +56,6 @@ app.listen(port, () => {
   console.log(`Web server listening on port ${port}`);
 });
 
-// Enable graceful stop
+// Enable graceful stop (mostly for local development or explicit shutdown)
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
