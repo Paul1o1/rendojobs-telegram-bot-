@@ -1,5 +1,9 @@
 const { Telegraf } = require("telegraf");
 const axios = require("axios");
+const express = require("express");
+
+const app = express();
+const port = process.env.PORT || 3000; // Use port from environment or default to 3000
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
@@ -30,6 +34,15 @@ bot.command("backend", async (ctx) => {
 });
 
 bot.launch();
+
+// Health check endpoint for Render
+app.get("/", (req, res) => {
+  res.send("Bot is running and healthy!");
+});
+
+app.listen(port, () => {
+  console.log(`Web server listening on port ${port}`);
+});
 
 // Enable graceful stop
 process.once("SIGINT", () => bot.stop("SIGINT"));
