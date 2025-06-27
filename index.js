@@ -14,7 +14,7 @@ bot.start((ctx) => {
         [
           {
             text: "Open Rendojobs App",
-            web_app: { url: "https://rendojobs-frontend.vercel.app" },
+            web_app: { url: "https://rendojobs-frontend.vercel.app/register" },
           },
         ],
       ],
