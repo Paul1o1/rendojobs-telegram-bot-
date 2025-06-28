@@ -9,7 +9,7 @@ const webHookUrl = process.env.WEBHOOK_URL; // Your Render service URL
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
 bot.start((ctx) => {
-  const webAppUrl = "https://rendojobs-frontend.vercel.app";
+  const webAppUrl = "https://rendojobs-frontend.vercel.app/role";
   console.log("Attempting to send web_app with URL:", webAppUrl);
   ctx.reply("Welcome! Use the button below to open the web app.", {
     reply_markup: {
