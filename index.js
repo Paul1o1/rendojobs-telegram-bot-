@@ -11,20 +11,23 @@ const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 bot.start((ctx) => {
   const webAppUrl = "https://rendojobs-frontend.vercel.app";
   console.log("Attempting to send web_app with URL:", webAppUrl);
-  ctx.reply("Welcome! Use the button below to open the web app.", {
-    reply_markup: {
-      keyboard: [
-        [
-          {
-            text: "Open Rendojobs App",
-            web_app: { url: webAppUrl },
-          },
+  ctx.reply(
+    "Welcome to Rendojobs! Please use the button below to launch the app.",
+    {
+      reply_markup: {
+        keyboard: [
+          [
+            {
+              text: "Launch Rendojobs",
+              web_app: { url: webAppUrl },
+            },
+          ],
         ],
-      ],
-      resize_keyboard: true,
-      one_time_keyboard: true,
-    },
-  });
+        resize_keyboard: true,
+        one_time_keyboard: true,
+      },
+    }
+  );
 });
 
 bot.command("backend", async (ctx) => {
