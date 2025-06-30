@@ -15,16 +15,14 @@ bot.start((ctx) => {
     "Welcome to Rendojobs! Please use the button below to launch the app.",
     {
       reply_markup: {
-        keyboard: [
+        inline_keyboard: [
           [
             {
-              text: "Launch Rendojobs",
+              text: "Launch Rendojobs App",
               web_app: { url: webAppUrl },
             },
           ],
         ],
-        resize_keyboard: true,
-        one_time_keyboard: true,
       },
     }
   );
